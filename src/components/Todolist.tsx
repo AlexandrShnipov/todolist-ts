@@ -17,19 +17,23 @@ type TodoListPropsType = {
 
 export const Todolist = (props: TodoListPropsType) => {
 
-    const [newTaskTitle, setNewTaskTitle] = useState('')
-
     const {tasks, removeTask, title, changedFilter, addTask} = props
 
-    const tasksList = tasks.map(task =>
-        <li key={task.id}>
-            <input type="checkbox" checked={task.isDone}/>
-            <span>{task.title}</span>
-            <button onClick={() => {
+    const [newTaskTitle, setNewTaskTitle] = useState('')
+
+    const tasksList = tasks.map(task => {
+            const onRemoveHandler = () => {
                 removeTask(task.id)
-            }}>X
-            </button>
-        </li>)
+            }
+            return (
+                <li key={task.id}>
+                    <input type="checkbox" checked={task.isDone}/>
+                    <span>{task.title}</span>
+                    <button onClick={onRemoveHandler}>X</button>
+                </li>
+            )
+        }
+    )
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setNewTaskTitle(e.currentTarget.value)
@@ -46,6 +50,10 @@ export const Todolist = (props: TodoListPropsType) => {
         }
     }
 
+    const onAllClickHandler = () => changedFilter('all')
+    const onActiveClickHandler = () => changedFilter('active')
+    const onCompletedClickHandler = () => changedFilter('completed')
+
     return (
         <>
             <div>
@@ -56,17 +64,15 @@ export const Todolist = (props: TodoListPropsType) => {
                         onChange={onChangeHandler}
                         onKeyPress={onKeyPressHandler}
                     />
-                    <button
-                        onClick={() => addNewTask}>+
-                    </button>
+                    <button onClick={addNewTask}>+</button>
                 </div>
                 <ul>
                     {tasksList}
                 </ul>
                 <div>
-                    <button onClick={() => changedFilter('all')}>All</button>
-                    <button onClick={() => changedFilter('active')}>Active</button>
-                    <button onClick={() => changedFilter('completed')}>Completed</button>
+                    <button onClick={onAllClickHandler}>All</button>
+                    <button onClick={onActiveClickHandler}>Active</button>
+                    <button onClick={onCompletedClickHandler}>Completed</button>
                 </div>
             </div>
         </>
