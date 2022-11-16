@@ -38,8 +38,11 @@ const App = () => {
         tasksForTodoList = tasks.filter(task=> task.isDone === true)
     }
 
-    const addTask = () => {
-        const newTask =  {id: v1(), title: 'HNew task', isDone: false}
+    const addTask = (title:string) => {
+        const newTask =  {
+            id: v1(),
+            title: title,
+            isDone: false}
         const newTasks = [newTask, ...tasks]
         setTasks(newTasks)
     }
@@ -47,7 +50,7 @@ const App = () => {
     return (
         <div className="App">
             <Todolist
-                title={'Movies'}
+                title={'Tasks'}
                 tasks={tasksForTodoList}
                 removeTask={removeTask}
                 changedFilter={changedFilter}
