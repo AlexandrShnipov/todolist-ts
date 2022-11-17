@@ -22,9 +22,7 @@ export const Todolist = (props: TodoListPropsType) => {
     const [newTaskTitle, setNewTaskTitle] = useState('')
 
     const tasksList = tasks.map(task => {
-            const onRemoveHandler = () => {
-                removeTask(task.id)
-            }
+            const onRemoveHandler = () => {removeTask(task.id)}
             return (
                 <li key={task.id}>
                     <input type="checkbox" checked={task.isDone}/>
