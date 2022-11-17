@@ -65,6 +65,7 @@ const App = () => {
                 changedFilter={changedFilter}
                 addTask={addTask}
                 changeTaskStatus={changeStatus}
+                filter = {filter}
             />
         </div>
     );

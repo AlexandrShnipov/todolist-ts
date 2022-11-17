@@ -1,0 +1,17 @@
+.error {
+    outline: red 1px solid;
+    border: red 1px solid;
+}
+
+.error-message {
+    color: red;
+}
+
+.active-filter {
+    background-color: aquamarine;
+    border: 2px solid aquamarine;
+}
+
+.is-done {
+    opacity: 0.5;
+}
