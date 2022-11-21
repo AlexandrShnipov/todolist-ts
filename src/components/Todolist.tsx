@@ -9,29 +9,33 @@ export type TasksType = {
 }
 
 type TodoListPropsType = {
-    id:string
+    id: string
     title: string
     tasks: Array<TasksType>
-    removeTask: (id: string) => void
-    changedFilter: (value: FilterValuesType, todoListId:string) => void
-    addTask: (title: string) => void
-    changeTaskStatus: (taskId: string, isDone: boolean) => void
+    removeTask: (id: string, todoListId: string) => void
+    changedFilter: (value: FilterValuesType, todoListId: string) => void
+    addTask: (title: string, todoListId: string) => void
+    changeTaskStatus: (taskId: string, isDone: boolean, todoListId: string) => void
     filter: FilterValuesType
 }
 
 export const Todolist = (props: TodoListPropsType) => {
 
-    const {tasks, removeTask, title, changedFilter, addTask, changeTaskStatus, filter} = props
+    const {
+        tasks, removeTask, title,
+        changedFilter, addTask, changeTaskStatus,
+        filter, id
+    } = props
 
     const [newTaskTitle, setNewTaskTitle] = useState('')
     const [error, setError] = useState<null | string>(null)
 
     const tasksList = tasks.map(task => {
             const onRemoveHandler = () => {
-                removeTask(task.id)
+                removeTask(task.id, id)
             }
             const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-                changeTaskStatus(task.id, e.currentTarget.checked)
+                changeTaskStatus(task.id, e.currentTarget.checked, id)
             }
             return (
                 <li
@@ -60,7 +64,7 @@ export const Todolist = (props: TodoListPropsType) => {
                 setError('Title is required')
             )
         }
-        addTask(newTaskTitle.trim())
+        addTask(newTaskTitle.trim(), id)
         setNewTaskTitle('')
     }
 
@@ -71,17 +75,17 @@ export const Todolist = (props: TodoListPropsType) => {
         }
     }
 
-    const onAllClickHandler = () =>{
-        changedFilter('all',props.id)
+    const onAllClickHandler = () => {
+        changedFilter('all', props.id)
         setError(null)
     }
     const onActiveClickHandler = () => {
         setError(null)
-        changedFilter('active',props.id)
+        changedFilter('active', props.id)
     }
-    const onCompletedClickHandler = () =>{
+    const onCompletedClickHandler = () => {
         setError(null)
-        changedFilter('completed',props.id)
+        changedFilter('completed', props.id)
     }
 
     return (
