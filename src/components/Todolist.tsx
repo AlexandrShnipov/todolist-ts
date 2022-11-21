@@ -17,6 +17,7 @@ type TodoListPropsType = {
     addTask: (title: string, todoListId: string) => void
     changeTaskStatus: (taskId: string, isDone: boolean, todoListId: string) => void
     filter: FilterValuesType
+    removeTodoListApp: (todoListId: string) => void
 }
 
 export const Todolist = (props: TodoListPropsType) => {
@@ -24,7 +25,7 @@ export const Todolist = (props: TodoListPropsType) => {
     const {
         tasks, removeTask, title,
         changedFilter, addTask, changeTaskStatus,
-        filter, id
+        filter, id, removeTodoListApp
     } = props
 
     const [newTaskTitle, setNewTaskTitle] = useState('')
@@ -88,10 +89,18 @@ export const Todolist = (props: TodoListPropsType) => {
         changedFilter('completed', props.id)
     }
 
+    const removeTodoList = () => {
+        removeTodoListApp(id)
+    }
+
     return (
         <>
             <div>
-                <h3>{title}</h3>
+                <div style={{display: 'flex', alignItems: 'center'}}>
+                    <h3>{title}</h3>
+                    <button onClick={removeTodoList}>x</button>
+                </div>
+
                 <div>
                     <input
                         value={newTaskTitle}

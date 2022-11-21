@@ -12,7 +12,7 @@ export type TodoListType = {
 }
 
 const App = () => {
-    const removeTask = (id: string, todoListsId:string) => {
+    const removeTask = (id: string, todoListsId: string) => {
         const tasks = tasksObj[todoListsId]
         const filteredTasks = tasks.filter((task) => task.id !== id);
         tasksObj[todoListsId] = filteredTasks
@@ -20,7 +20,7 @@ const App = () => {
 
     }
 
-    const addTask = (title: string, todoListsId:string) => {
+    const addTask = (title: string, todoListsId: string) => {
         const newTask = {
             id: v1(),
             title: title,
@@ -28,11 +28,11 @@ const App = () => {
         }
         const tasks = tasksObj[todoListsId]
         const newTasks = [newTask, ...tasks]
-        tasksObj[todoListsId]=newTasks
+        tasksObj[todoListsId] = newTasks
         setTasksObj({...tasksObj})
     }
 
-    const changeStatus = (taskId: string, isDone: boolean, todoListsId:string) => {
+    const changeStatus = (taskId: string, isDone: boolean, todoListsId: string) => {
         const tasks = tasksObj[todoListsId]
         const task = tasks.find(t => t.id === taskId)
         if (task) {
@@ -48,6 +48,13 @@ const App = () => {
             todoList.filter = value
             setTodoLists([...todoLists])
         }
+    }
+
+    const removeTodoListApp = (todoListsId: string) => {
+        const filteredTodoLists = todoLists.filter(tl => tl.id !== todoListsId)
+        setTodoLists(filteredTodoLists)
+        delete tasksObj[todoListsId]
+        setTasksObj({...tasksObj})
     }
 
     const todoListsId1 = v1()
@@ -93,9 +100,9 @@ const App = () => {
                             addTask={addTask}
                             changeTaskStatus={changeStatus}
                             filter={tl.filter}
+                            removeTodoListApp={removeTodoListApp}
                         />
                     )
-
                 })
             }
 
