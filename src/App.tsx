@@ -44,7 +44,15 @@ const App = () => {
             task.isDone = isDone
             setTasks({...tasksObj})
         }
+    }
 
+    const changeTaskTitle = (taskId: string, newTitle:string, todoListsId: string) => {
+        const tasks = tasksObj[todoListsId]
+        const task = tasks.find(t => t.id === taskId)
+        if (task) {
+            task.title = newTitle
+            setTasks({...tasksObj})
+        }
     }
 
     const changedFilter = (value: FilterValuesType, todoListId: string) => {
@@ -117,6 +125,7 @@ const App = () => {
                                 changedFilter={changedFilter}
                                 addTask={addTask}
                                 changeTaskStatus={changeStatus}
+                                changeTaskTitle={changeTaskTitle}
                                 filter={tl.filter}
                                 removeTodoListApp={removeTodoListApp}
                             />
