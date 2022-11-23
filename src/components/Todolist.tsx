@@ -21,14 +21,15 @@ type TodoListPropsType = {
     changeTaskTitle: (taskId: string, newTitle:string, todoListId: string) => void
     filter: FilterValuesType
     removeTodoListApp: (todoListId: string) => void
+    changeTodoListTitleApp: (todoListId: string, newTitle:string) => void
 }
 
 export const Todolist = (props: TodoListPropsType) => {
 
     const {
         tasks, removeTask, title,
-        changedFilter, changeTaskStatus,
-        filter, id, removeTodoListApp, changeTaskTitle
+        changedFilter, changeTaskStatus,changeTaskTitle,
+        filter, id, removeTodoListApp,changeTodoListTitleApp,
     } = props
 
     const tasksList = tasks.map(task => {
@@ -74,6 +75,10 @@ export const Todolist = (props: TodoListPropsType) => {
         removeTodoListApp(id)
     }
 
+    const changeTodoListTitle = (newTitle:string) => {
+        changeTodoListTitleApp(id, newTitle)
+    }
+
     const addTask = (title: string) => {
         props.addTask(title, id)
     }
@@ -82,7 +87,11 @@ export const Todolist = (props: TodoListPropsType) => {
         <>
             <div>
                 <div style={{display: 'flex', alignItems: 'center'}}>
-                    <h3>{title}</h3>
+                    <h3>
+                        <EditableSpan
+                            title={title}
+                            onChange={changeTodoListTitle}/>
+                    </h3>
                     <button onClick={removeTodoList}>x</button>
                 </div>
 
