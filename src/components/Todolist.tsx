@@ -5,6 +5,7 @@ import {AddItemForm} from './AddItemForm';
 import {EditableSpan} from './EditableSpan';
 import IconButton from '@mui/material/IconButton';
 import {Delete} from '@mui/icons-material';
+import {Button} from '@mui/material';
 
 export type TasksType = {
     id: string
@@ -97,18 +98,20 @@ export const Todolist = (props: TodoListPropsType) => {
                     {tasksList}
                 </ul>
                 <div>
-                    <button
-                        className={filter === 'all' ? 'active-filter' : ''}
+                    <Button
+                        variant={filter === 'all' ? 'contained' : 'text'}
                         onClick={onAllClickHandler}>All
-                    </button>
-                    <button
-                        className={filter === 'active' ? 'active-filter' : ''}
+                    </Button>
+                    <Button
+                        color={'primary'}
+                        variant={filter === 'active' ? 'contained' : 'text'}
                         onClick={onActiveClickHandler}>Active
-                    </button>
-                    <button
-                        className={filter === 'completed' ? 'active-filter' : ''}
+                    </Button>
+                    <Button
+                        color={'secondary'}
+                        variant={filter === 'completed' ? 'contained' : 'text'}
                         onClick={onCompletedClickHandler}>Completed
-                    </button>
+                    </Button>
                 </div>
             </div>
         </>
