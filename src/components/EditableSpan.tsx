@@ -13,8 +13,8 @@ export const EditableSpan = (props: EditableSpanPropsType) => {
     }
 
     return (
-        editMode ?
-            <TextField value={props.title}/> :
-            <span onDoubleClick={activateEditMode}>{props.title}</span>
+        editMode
+            ? <TextField value={props.title}/>
+            : <span onDoubleClick={activateEditMode}>{props.title}</span>
     )
 }
