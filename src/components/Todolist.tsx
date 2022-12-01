@@ -3,6 +3,8 @@ import {FilterValuesType} from '../App';
 import './TodoList.css'
 import {AddItemForm} from './AddItemForm';
 import {EditableSpan} from './EditableSpan';
+import IconButton from '@mui/material/IconButton';
+import {Delete} from '@mui/icons-material';
 
 export type TasksType = {
     id: string
@@ -48,7 +50,12 @@ export const Todolist = (props: TodoListPropsType) => {
                         onChange={onChangeHandler}
                     />
                     <EditableSpan title={task.title}/>
-                    <button onClick={onRemoveHandler}>X</button>
+                    <IconButton
+                        onClick={onRemoveHandler}
+                        aria-label="delete"
+                        size="small">
+                        <Delete fontSize={'inherit'}/>
+                    </IconButton>
                 </li>
             )
         }
@@ -77,7 +84,12 @@ export const Todolist = (props: TodoListPropsType) => {
             <div>
                 <div style={{display: 'flex', alignItems: 'center'}}>
                     <h3>{title}</h3>
-                    <button onClick={removeTodoList}>x</button>
+                    <IconButton
+                        onClick={removeTodoList}
+                        aria-label="delete"
+                        size="small">
+                        <Delete />
+                    </IconButton>
                 </div>
 
                 <AddItemForm addItem={addTask}/>

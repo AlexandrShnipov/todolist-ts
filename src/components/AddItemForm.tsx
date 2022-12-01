@@ -1,4 +1,6 @@
+import { Button } from '@mui/material';
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
@@ -24,6 +26,7 @@ export const AddItemForm = (props: AddItemFormPropsType) => {
                 setError('Title is required')
             )
         }
+
         addItem(newTaskTitle.trim())
         setNewTaskTitle('')
     }
@@ -37,7 +40,10 @@ export const AddItemForm = (props: AddItemFormPropsType) => {
                     onKeyPress={onKeyPressHandler}
                     className={error ? 'error' : ''}
                 />
-                <button onClick={addNewTask}>+</button>
+                <Button
+                    onClick={addNewTask}
+                    variant={'contained'}>+
+                </Button>
             </div>
             {error && <p className={'error-message'}>{error}</p>}
         </div>
