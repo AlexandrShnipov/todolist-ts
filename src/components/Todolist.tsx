@@ -21,15 +21,16 @@ type TodoListPropsType = {
     changedFilter: (value: FilterValuesType, todoListId: string) => void
     addTask: (title: string, todoListId: string) => void
     changeTaskStatus: (taskId: string, isDone: boolean, todoListId: string) => void
+    changeTaskTitle: (taskId: string, newTitle: string, todoListId: string) => void
     filter: FilterValuesType
     removeTodoListApp: (todoListId: string) => void
-}
+   }
 
 export const Todolist = (props: TodoListPropsType) => {
 
     const {
         tasks, removeTask, title,
-        changedFilter, changeTaskStatus,
+        changedFilter, changeTaskStatus,changeTaskTitle,
         filter, id, removeTodoListApp
     } = props
 
@@ -40,6 +41,11 @@ export const Todolist = (props: TodoListPropsType) => {
             const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
                 changeTaskStatus(task.id, e.currentTarget.checked, id)
             }
+
+            const onChangeTitleHandler = (newValue: string) => {
+                changeTaskTitle(task.id, newValue, id)
+            }
+
             return (
                 <li
                     key={task.id}
@@ -49,7 +55,10 @@ export const Todolist = (props: TodoListPropsType) => {
                         checked={task.isDone}
                         onChange={onChangeHandler}
                     />
-                    <EditableSpan title={task.title}/>
+                    <EditableSpan
+                        title={task.title}
+                        onChange={onChangeTitleHandler}
+                    />
                     <IconButton
                         onClick={onRemoveHandler}
                         aria-label="delete"
@@ -88,7 +97,7 @@ export const Todolist = (props: TodoListPropsType) => {
                         onClick={removeTodoList}
                         aria-label="delete"
                         size="small">
-                        <Delete />
+                        <Delete/>
                     </IconButton>
                 </div>
 

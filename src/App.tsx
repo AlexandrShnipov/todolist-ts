@@ -48,7 +48,15 @@ const App = () => {
             task.isDone = isDone
             setTasks({...tasksObj})
         }
+    }
 
+    const changeTaskTitle = (taskId: string, newTitle: string, todoListsId: string) => {
+        const tasks = tasksObj[todoListsId]
+        const task = tasks.find(t => t.id === taskId)
+        if (task) {
+            task.title = newTitle
+            setTasks({...tasksObj})
+        }
     }
 
     const changedFilter = (value: FilterValuesType, todoListId: string) => {
@@ -126,7 +134,7 @@ const App = () => {
                     <AddItemForm addItem={addTodoList}/>
                 </Grid>
 
-                <Grid container spacing={3} >
+                <Grid container spacing={3}>
                     {
                         todoLists.map(tl => {
                             let tasksForTodoList = tasksObj[tl.id]
@@ -137,7 +145,7 @@ const App = () => {
                                 tasksForTodoList = tasksForTodoList.filter(task => task.isDone === true)
                             }
                             return (
-                                <Grid item style={{display:'flex'}}>
+                                <Grid item style={{display: 'flex'}}>
                                     <Paper style={{padding: '1rem'}}>
                                         <Todolist
                                             key={tl.id}
@@ -148,6 +156,7 @@ const App = () => {
                                             changedFilter={changedFilter}
                                             addTask={addTask}
                                             changeTaskStatus={changeStatus}
+                                            changeTaskTitle={changeTaskTitle}
                                             filter={tl.filter}
                                             removeTodoListApp={removeTodoListApp}
                                         />
