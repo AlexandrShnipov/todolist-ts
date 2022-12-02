@@ -1,5 +1,6 @@
-import {Button, TextField} from '@mui/material';
+import {Button, IconButton, TextField} from '@mui/material';
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import {Add, AddBox} from '@mui/icons-material';
 
 
 type AddItemFormPropsType = {
@@ -43,10 +44,10 @@ export const AddItemForm = (props: AddItemFormPropsType) => {
                     error={!!error}
                     helperText={error}
                 />
-                <Button
-                    onClick={addNewTask}
-                    variant={'contained'}>+
-                </Button>
+                <IconButton onClick={addNewTask}
+                            color={'primary'}>
+                    <AddBox/>
+                </IconButton>
             </div>
         </div>
     )
