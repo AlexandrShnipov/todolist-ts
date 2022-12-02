@@ -2,6 +2,10 @@ import React, {ChangeEvent} from 'react';
 import {FilterValuesType} from '../App';
 import './TodoList.css'
 import {AddItemForm} from './AddItemForm';
+import {EditableSpan} from './EditableSpan';
+import IconButton from '@mui/material/IconButton';
+import {Delete} from '@mui/icons-material';
+import {Button, Checkbox} from '@mui/material';
 
 export type TasksType = {
     id: string
@@ -17,9 +21,9 @@ type TodoListPropsType = {
     changedFilter: (value: FilterValuesType, todoListId: string) => void
     addTask: (title: string, todoListId: string) => void
     changeTaskStatus: (taskId: string, isDone: boolean, todoListId: string) => void
+    changeTaskTitle: (taskId: string, newTitle: string, todoListId: string) => void
     filter: FilterValuesType
     removeTodoListApp: (todoListId: string) => void
-    changeTodoListTitleApp: (todoListId: string, newTitle:string) => void
 }
 
 export const Todolist = (props: TodoListPropsType) => {
@@ -27,14 +31,14 @@ export const Todolist = (props: TodoListPropsType) => {
     const {
         tasks, removeTask, title,
         changedFilter, changeTaskStatus,changeTaskTitle,
-        filter, id, removeTodoListApp,changeTodoListTitleApp,
+        filter, id, removeTodoListApp
     } = props
 
     const tasksList = tasks.map(task => {
             const onRemoveHandler = () => {
                 removeTask(task.id, id)
             }
-            const onChangeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
+            const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
                 changeTaskStatus(task.id, e.currentTarget.checked, id)
             }
 
@@ -49,10 +53,18 @@ export const Todolist = (props: TodoListPropsType) => {
                 >
                     <Checkbox
                         checked={task.isDone}
-                        onChange={onChangeStatusHandler}
+                        onChange={onChangeHandler}
                     />
-                    <span>{task.title}</span>
-                    <button onClick={onRemoveHandler}>X</button>
+                    <EditableSpan
+                        title={task.title}
+                        onChange={onChangeTitleHandler}
+                    />
+                    <IconButton
+                        onClick={onRemoveHandler}
+                        aria-label="delete"
+                        size="small">
+                        <Delete fontSize={'inherit'}/>
+                    </IconButton>
                 </li>
             )
         }
@@ -72,10 +84,6 @@ export const Todolist = (props: TodoListPropsType) => {
         removeTodoListApp(id)
     }
 
-    const changeTodoListTitle = (newTitle:string) => {
-        changeTodoListTitleApp(id, newTitle)
-    }
-
     const addTask = (title: string) => {
         props.addTask(title, id)
     }
@@ -84,11 +92,7 @@ export const Todolist = (props: TodoListPropsType) => {
         <>
             <div>
                 <div style={{display: 'flex', alignItems: 'center'}}>
-                    <h3>
-                        <EditableSpan
-                            title={title}
-                            onChange={changeTodoListTitle}/>
-                    </h3>
+                    <h3>{title}</h3>
                     <IconButton
                         onClick={removeTodoList}
                         aria-label="delete"

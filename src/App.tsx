@@ -50,7 +50,7 @@ const App = () => {
         }
     }
 
-    const changeTaskTitle = (taskId: string, newTitle:string, todoListsId: string) => {
+    const changeTaskTitle = (taskId: string, newTitle: string, todoListsId: string) => {
         const tasks = tasksObj[todoListsId]
         const task = tasks.find(t => t.id === taskId)
         if (task) {
@@ -72,14 +72,6 @@ const App = () => {
         setTodoLists(filteredTodoLists)
         delete tasksObj[todoListsId]
         setTasks({...tasksObj})
-    }
-
-    const changeTodoListTitleApp = (todoListId: string, newTitle:string) => {
-        const todoList = todoLists.find(tl=> tl.id === todoListId)
-        if(todoList){
-            todoList.title = newTitle
-            setTodoLists([...todoLists])
-        }
     }
 
     const todoListsId1 = v1()
@@ -165,9 +157,8 @@ const App = () => {
                                             addTask={addTask}
                                             changeTaskStatus={changeStatus}
                                             changeTaskTitle={changeTaskTitle}
-                                filter={tl.filter}
-                                removeTodoListApp={removeTodoListApp}
-                                changeTodoListTitleApp={changeTodoListTitleApp}
+                                            filter={tl.filter}
+                                            removeTodoListApp={removeTodoListApp}
                                         />
                                     </Paper>
 
