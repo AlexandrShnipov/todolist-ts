@@ -144,10 +144,11 @@ const App = () => {
                                 tasksForTodoList = tasksForTodoList.filter(task => task.isDone === true)
                             }
                             return (
-                                <Grid item style={{display: 'flex'}}>
+                                <Grid
+                                    key={tl.id}
+                                    item style={{display: 'flex'}}>
                                     <Paper style={{padding: '1rem'}}>
                                         <Todolist
-                                            key={tl.id}
                                             id={tl.id}
                                             title={tl.title}
                                             tasks={tasksForTodoList}
