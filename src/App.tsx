@@ -61,20 +61,20 @@ const App = () => {
         setTasks({...tasks})
     }
 
-    const changeStatus = (taskId: string, isDone: boolean, todoListsId: string) => {
-        const task = tasks[todoListsId]
-        const findTask = task.find(t => t.id === taskId)
-        if (findTask) {
-            findTask.isDone = isDone
+    const changeStatus = (id: string, isDone: boolean, todoListsId: string) => {
+        const todoListTasks = tasks[todoListsId]
+        const task = todoListTasks.find(t => t.id === id)
+        if (task) {
+            task.isDone = isDone
             setTasks({...tasks})
         }
     }
 
-    const changeTaskTitle = (taskId: string, newTitle: string, todoListsId: string) => {
-        const task = tasks[todoListsId]
-        const findTask = task.find(t => t.id === taskId)
-        if (findTask) {
-            findTask.title = newTitle
+    const changeTaskTitle = (id: string, newTitle: string, todoListsId: string) => {
+        const todoListTasks = tasks[todoListsId]
+        const task = todoListTasks.find(t => t.id === id)
+        if (task) {
+            task.title = newTitle
             setTasks({...tasks})
         }
     }
