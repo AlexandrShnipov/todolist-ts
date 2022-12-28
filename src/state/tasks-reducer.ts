@@ -1,41 +1,47 @@
 import {TaskStateType} from '../App';
 import {v1} from 'uuid';
-import {resolveObjectURL} from 'buffer';
 
-export type RemoveTaskType = {
+export type RemoveTaskActionType = {
     type: 'REMOVE-TASK'
     taskId: string
     todoListId: string
 }
 
-export type Action2Type = {
-    type: 'ACTION2'
+export type AddTaskActionType = {
+    type: 'ADD-TASK'
+    todoListId: string
+    title: string
 }
 
 
-export type ActionsType = RemoveTaskType |
-    Action2Type
+export type ActionsType = RemoveTaskActionType |  AddTaskActionType
 
 
 export const tasksReducer = (state: TaskStateType, action: ActionsType): TaskStateType => {
     switch (action.type) {
-        case 'REMOVE-TASK' :
-           // const stateCopy = {...state}
+        case 'REMOVE-TASK' : {
+            // const stateCopy = {...state}
             const tasks = state[action.todoListId]
-            const filteredTasks = tasks.filter(t=> t.id!==action.taskId)
-            return {...state,
+            const filteredTasks = tasks.filter(t => t.id !== action.taskId)
+            return {
+                ...state,
                 [action.todoListId]: filteredTasks
             }
-
-        case 'ACTION2':
-            return {...state}
+        }
+        case 'ADD-TASK':
+            //const tasks = state[action.todoListId]
+            const newTask = {id:v1(), title:action.title,isDone:false}
+            return {
+                ...state,
+                [action.todoListId]:[newTask,...state[action.todoListId]]
+            }
 
         default:
             throw new Error(`I don't understand this action type`)
     }
 }
 
-export const removeTaskAC = (taskId: string, todoListId: string): RemoveTaskType => {
+export const removeTaskAC = (taskId: string, todoListId: string): RemoveTaskActionType => {
     return {
         type: 'REMOVE-TASK',
         taskId,
@@ -43,9 +49,11 @@ export const removeTaskAC = (taskId: string, todoListId: string): RemoveTaskType
     }
 }
 
-export const action2AC = (title: string): Action2Type => {
+export const addTaskAC = (title: string, todoListId: string): AddTaskActionType => {
     return {
-        type: 'ACTION2',
+        type: 'ADD-TASK',
+        todoListId,
+        title
     }
 }
 
