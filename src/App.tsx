@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './reset.css'
 import './App.css';
-import {TasksType, Todolist} from './components/Todolist';
+import {TasksType, TodoList} from './components/TodoList';
 import {v1} from 'uuid';
 import {AddItemForm} from './components/AddItemForm';
 import {AppBar, Box, Button, Container, Paper, Toolbar, Typography} from '@mui/material';
@@ -156,7 +156,7 @@ const App = () => {
                                     key={tl.id}
                                     item style={{display: 'flex'}}>
                                     <Paper style={{padding: '1rem'}}>
-                                        <Todolist
+                                        <TodoList
                                             id={tl.id}
                                             title={tl.title}
                                             tasks={tasksForTodoList}

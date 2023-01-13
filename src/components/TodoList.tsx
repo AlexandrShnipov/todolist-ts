@@ -27,7 +27,7 @@ type TodoListPropsType = {
     changeTodoListTitle: (newTitle: string, todoListId: string) => void
 }
 
-export const Todolist = (props: TodoListPropsType) => {
+export const TodoList = (props: TodoListPropsType) => {
 
     const {
         tasks, removeTask, title,
